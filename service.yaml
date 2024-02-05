@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: solar-app-service
+  namespace: solar-app
+spec:
+  selector:
+    app: solar-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: NodePort
