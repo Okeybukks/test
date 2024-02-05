@@ -1,34 +1,23 @@
-
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: global-grafana
+  name: achebepeterokechukwu
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: grafana
+    namespace: achebe
     server: https://kubernetes.default.svc
   source:
-    repoURL: https://grafana.github.io/helm-charts/
-    chart: grafana
-    targetRevision: 7.2.5
+    repoURL: https://charts.bitnami.com/bitnami
+    chart: nginx
+    targetRevision: 15.10.2
     helm:
       values: |
         service:
-          type: LoadBalancer
-        ingress:
-          enabled: true
-          ingressClassName: nginx
-          annotations:
-            cert-manager.io/cluster-issuer: letsencrypt-prod
-          hosts:
-            - grafana.hostspacecloud.com
-          tls:
-          - secretName: grafana-tls
-            hosts:
-            - grafana.hostspacecloud.com
+          type: NodePort
+       
   project: default
   syncPolicy:
     automated:
